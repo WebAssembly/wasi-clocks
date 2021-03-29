@@ -16,8 +16,11 @@
 
   ;;; A clock providing [POSIX time].
   ;;;
+  ;;; TODO: Convert this from a `func` to an immutable global, pending
+  ;;; resolution of https://github.com/WebAssembly/WASI/issues/419
+  ;;;
   ;;; [POSIX time]: https://pubs.opengroup.org/onlinepubs/9699919799/xrat/V4_xbd_chap04.html#tag_21_04_16
-  (@interface global (export "posix") $clock)
+  (@interface func (export "posix") (result $clock $clock))
 
   ;;; A clock where each successive timestamp is guaranteed to be at least as
   ;;; great as the previous.
@@ -26,7 +29,10 @@
   ;;;
   ;;; This clock should reflect wall-clock elapsed time, except that it may
   ;;; nondeterministically suspend when the program itself is is suspended.
-  (@interface global (export "monotonic") $clock)
+  ;;;
+  ;;; TODO: Convert this from a `func` to an immutable global, pending
+  ;;; resolution of https://github.com/WebAssembly/WASI/issues/419
+  (@interface func (export "monotonic") (result $clock $clock))
 
   ;;; Return the resolution of a clock.
   ;;;

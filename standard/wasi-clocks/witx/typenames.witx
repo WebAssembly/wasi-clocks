@@ -6,4 +6,7 @@
 ;; for an explanation of what that means.
 
 ;;; Timestamp in nanoseconds.
+;;;
+;;; TODO: Convert this to use seconds+nanoseconds, as discussed in
+;;; https://github.com/WebAssembly/wasi-clocks/issues/1
 (typename $timestamp u64)

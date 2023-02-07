@@ -4,7 +4,7 @@
 ```wit
 /// A time and date in seconds plus nanoseconds.
 ///
-/// TODD: Use the definition from the monotonic clock API instead of defining our own copy.
+/// TODO: Use the definition from the monotonic clock API instead of defining our own copy.
 record datetime {
     seconds: u64,
     nanoseconds: u32,

@@ -14,27 +14,11 @@
 at once.</p>
 <hr />
 <h3>Types</h3>
-<h4><a name="pollable"><code>type pollable</code></a></h4>
-<p><code>u32</code></p>
-<p>A "pollable" handle.
-<p>This is conceptually represents a <code>stream&lt;_, _&gt;</code>, or in other words,
-a stream that one can wait on, repeatedly, but which does not itself
-produce any data. It's temporary scaffolding until component-model's
-async features are ready.</p>
-<p>And at present, it is a <code>u32</code> instead of being an actual handle, until
-the wit-bindgen implementation of handles and resources is ready.</p>
-<p><a href="#pollable"><code>pollable</code></a> lifetimes are not automatically managed. Users must ensure
-that they do not outlive the resource they reference.</p>
-<p>This <a href="https://github.com/WebAssembly/WASI/blob/main/docs/WitInWasi.md#Resources">represents a resource</a>.</p>
+<h4><a name="pollable"><code>resource pollable</code></a></h4>
+<h5>Resource Members</h5>
+<p>TODO</p>
 <hr />
 <h3>Functions</h3>
-<h4><a name="drop_pollable"><code>drop-pollable: func</code></a></h4>
-<p>Dispose of the specified <a href="#pollable"><code>pollable</code></a>, after which it may no longer
-be used.</p>
-<h5>Params</h5>
-<ul>
-<li><a name="drop_pollable.this"><code>this</code></a>: <a href="#pollable"><a href="#pollable"><code>pollable</code></a></a></li>
-</ul>
 <h4><a name="poll_oneoff"><code>poll-oneoff: func</code></a></h4>
 <p>Poll for completion on a set of pollables.</p>
 <p>The &quot;oneoff&quot; in the name refers to the fact that this function must do a
@@ -43,18 +27,16 @@ inefficient if the number is large and the same subscriptions are used
 many times. In the future, this is expected to be obsoleted by the
 component model async proposal, which will include a scalable waiting
 facility.</p>
-<p>Note that the return type would ideally be <code>list&lt;bool&gt;</code>, but that would
-be more difficult to polyfill given the current state of <code>wit-bindgen</code>.
-See <a href="https://github.com/bytecodealliance/preview2-prototyping/pull/11#issuecomment-1329873061">https://github.com/bytecodealliance/preview2-prototyping/pull/11#issuecomment-1329873061</a>
-for details.  For now, we use zero to mean &quot;not ready&quot; and non-zero to
-mean &quot;ready&quot;.</p>
+<p>The result list<bool> is the same length as the argument
+list<pollable>, and indicates the readiness of each corresponding
+element in that / list, with true indicating ready.</p>
 <h5>Params</h5>
 <ul>
-<li><a name="poll_oneoff.in"><code>in</code></a>: list&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
+<li><a name="poll_oneoff.in"><code>in</code></a>: list&lt;own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;&gt;</li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a name="poll_oneoff.0"></a> list&lt;<code>u8</code>&gt;</li>
+<li><a name="poll_oneoff.0"></a> list&lt;<code>bool</code>&gt;</li>
 </ul>
 <h2><a name="wasi:clocks_monotonic_clock">Import interface wasi:clocks/monotonic-clock</a></h2>
 <p>WASI Monotonic Clock is a clock API intended to let users measure elapsed
@@ -98,7 +80,7 @@ reached.</p>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a name="subscribe.0"></a> <a href="#pollable"><a href="#pollable"><code>pollable</code></a></a></li>
+<li><a name="subscribe.0"></a> own&lt;<a href="#pollable"><a href="#pollable"><code>pollable</code></a></a>&gt;</li>
 </ul>
 <h2><a name="wasi:clocks_wall_clock">Import interface wasi:clocks/wall-clock</a></h2>
 <p>WASI Wall Clock is a clock API intended to let users query the current
@@ -147,14 +129,17 @@ also known as <a href="https://en.wikipedia.org/wiki/Unix_time">Unix Time</a>.</
 <h4><a name="datetime"><code>type datetime</code></a></h4>
 <p><a href="#datetime"><a href="#datetime"><code>datetime</code></a></a></p>
 <p>
-#### <a name="timezone_display">`record timezone-display`</a>
+#### <a name="timezone">`resource timezone`</a>
+<h5>Resource Members</h5>
+<p>TODO</p>
+<h4><a name="timezone_display"><code>record timezone-display</code></a></h4>
 <p>Information useful for displaying the timezone of a specific <a href="#datetime"><code>datetime</code></a>.</p>
 <p>This information may vary within a single <a href="#timezone"><code>timezone</code></a> to reflect daylight
 saving time adjustments.</p>
 <h5>Record Fields</h5>
 <ul>
 <li>
-<p><a name="timezone_display.utc_offset"><a href="#utc_offset"><code>utc-offset</code></a></a>: <code>s32</code></p>
+<p><a name="timezone_display.utc_offset"><code>utc-offset</code></a>: <code>s32</code></p>
 <p>The number of seconds difference between UTC time and the local
 time of the timezone.
 <p>The returned value will always be less than 86400 which is the
@@ -179,46 +164,32 @@ representation of the UTC offset may be returned, such as <code>-04:00</code>.</
 should return false.</p>
 </li>
 </ul>
-<h4><a name="timezone"><code>type timezone</code></a></h4>
-<p><code>u32</code></p>
-<p>A timezone.
-<p>In timezones that recognize daylight saving time, also known as daylight
-time and summer time, the information returned from the functions varies
-over time to reflect these adjustments.</p>
-<p>This <a href="https://github.com/WebAssembly/WASI/blob/main/docs/WitInWasi.md#Resources">represents a resource</a>.</p>
 <hr />
 <h3>Functions</h3>
-<h4><a name="display"><code>display: func</code></a></h4>
+<h4><a name="method_timezone.display"><code>[method]timezone.display: func</code></a></h4>
 <p>Return information needed to display the given <a href="#datetime"><code>datetime</code></a>. This includes
 the UTC offset, the time zone name, and a flag indicating whether
 daylight saving time is active.</p>
 <p>If the timezone cannot be determined for the given <a href="#datetime"><code>datetime</code></a>, return a
-<a href="#timezone_display"><code>timezone-display</code></a> for <code>UTC</code> with a <a href="#utc_offset"><code>utc-offset</code></a> of 0 and no daylight
+<a href="#timezone_display"><code>timezone-display</code></a> for <code>UTC</code> with a <code>utc-offset</code> of 0 and no daylight
 saving time.</p>
 <h5>Params</h5>
 <ul>
-<li><a name="display.this"><code>this</code></a>: <a href="#timezone"><a href="#timezone"><code>timezone</code></a></a></li>
-<li><a name="display.when"><code>when</code></a>: <a href="#datetime"><a href="#datetime"><code>datetime</code></a></a></li>
+<li><a name="method_timezone.display.self"><code>self</code></a>: borrow&lt;<a href="#timezone"><a href="#timezone"><code>timezone</code></a></a>&gt;</li>
+<li><a name="method_timezone.display.when"><code>when</code></a>: <a href="#datetime"><a href="#datetime"><code>datetime</code></a></a></li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a name="display.0"></a> <a href="#timezone_display"><a href="#timezone_display"><code>timezone-display</code></a></a></li>
+<li><a name="method_timezone.display.0"></a> <a href="#timezone_display"><a href="#timezone_display"><code>timezone-display</code></a></a></li>
 </ul>
-<h4><a name="utc_offset"><code>utc-offset: func</code></a></h4>
-<p>The same as <a href="#display"><code>display</code></a>, but only return the UTC offset.</p>
+<h4><a name="method_timezone.utc_offset"><code>[method]timezone.utc-offset: func</code></a></h4>
+<p>The same as <code>display</code>, but only return the UTC offset.</p>
 <h5>Params</h5>
 <ul>
-<li><a name="utc_offset.this"><code>this</code></a>: <a href="#timezone"><a href="#timezone"><code>timezone</code></a></a></li>
-<li><a name="utc_offset.when"><code>when</code></a>: <a href="#datetime"><a href="#datetime"><code>datetime</code></a></a></li>
+<li><a name="method_timezone.utc_offset.self"><code>self</code></a>: borrow&lt;<a href="#timezone"><a href="#timezone"><code>timezone</code></a></a>&gt;</li>
+<li><a name="method_timezone.utc_offset.when"><code>when</code></a>: <a href="#datetime"><a href="#datetime"><code>datetime</code></a></a></li>
 </ul>
 <h5>Return values</h5>
 <ul>
-<li><a name="utc_offset.0"></a> <code>s32</code></li>
-</ul>
-<h4><a name="drop_timezone"><code>drop-timezone: func</code></a></h4>
-<p>Dispose of the specified input-stream, after which it may no longer
-be used.</p>
-<h5>Params</h5>
-<ul>
-<li><a name="drop_timezone.this"><code>this</code></a>: <a href="#timezone"><a href="#timezone"><code>timezone</code></a></a></li>
+<li><a name="method_timezone.utc_offset.0"></a> <code>s32</code></li>
 </ul>

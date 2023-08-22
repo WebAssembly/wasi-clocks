@@ -10,6 +10,9 @@ interface timezone {
     /// This [represents a resource](https://github.com/WebAssembly/WASI/blob/main/docs/WitInWasi.md#Resources).
     type timezone = u32
 
+    /// Return the system timezone, creating the resource.
+    instance-timezone: func() -> timezone
+
     /// Return information needed to display the given `datetime`. This includes
     /// the UTC offset, the time zone name, and a flag indicating whether
     /// daylight saving time is active.

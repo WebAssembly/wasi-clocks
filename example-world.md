@@ -188,6 +188,12 @@ over time to reflect these adjustments.</p>
 <p>This <a href="https://github.com/WebAssembly/WASI/blob/main/docs/WitInWasi.md#Resources">represents a resource</a>.</p>
 <hr />
 <h3>Functions</h3>
+<h4><a name="instance_timezone"><code>instance-timezone: func</code></a></h4>
+<p>Return the system timezone, creating the resource.</p>
+<h5>Return values</h5>
+<ul>
+<li><a name="instance_timezone.0"></a> <a href="#timezone"><a href="#timezone"><code>timezone</code></a></a></li>
+</ul>
 <h4><a name="display"><code>display: func</code></a></h4>
 <p>Return information needed to display the given <a href="#datetime"><code>datetime</code></a>. This includes
 the UTC offset, the time zone name, and a flag indicating whether

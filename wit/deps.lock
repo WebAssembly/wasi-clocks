@@ -1,4 +1,4 @@
-[poll]
-url = "https://github.com/WebAssembly/wasi-poll/archive/main.tar.gz"
-sha256 = "d4c27124f4c137eb538b5c92ba5858ed9042e11b24a2eef85d14becd0b7f55de"
-sha512 = "422c01b273b4b1377ece6f2e4ba0dfc609ca8ef30a3e0be0e172e1303fcf7b3ca4c470f4dea6c51bdf114b0f5c871ebc4934dfe3bf217d66ea689748df2b1e55"
+[io]
+url = "https://github.com/sunfishcode/wasi-io/archive/resources.tar.gz"
+sha256 = "c01495e96837dbd33b8d8dd70b75a0bf2ee5795b6c85ab50701e870bbcf2ceb3"
+sha512 = "fd8f60fad6560396d07d530efb76a4c54ce823d523528ba5ba61ccdc521e361c1e9660d0a77c02a5e6b80ea981cddedbaa703322f1ba502333784ea974edb835"

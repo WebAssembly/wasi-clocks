@@ -31,14 +31,13 @@ interface monotonic-clock {
     resolution: func() -> duration;
 
     /// Create a `pollable` which will resolve once the specified instant
-    /// occured.
+    /// has occurred.
     subscribe-instant: func(
         when: instant,
     ) -> pollable;
 
-    /// Create a `pollable` which will resolve once the given duration has
-    /// elapsed, starting at the time at which this function was called.
-    /// occured.
+    /// Create a `pollable` that will resolve after the specified duration has
+    /// elapsed from the time this function is invoked.
     subscribe-duration: func(
         when: duration,
     ) -> pollable;

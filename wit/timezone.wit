@@ -1,5 +1,6 @@
 package wasi:clocks@0.2.0;
 
+@unstable(feature = clocks-timezone)
 interface timezone {
     use wall-clock.{datetime};
 
@@ -10,15 +11,18 @@ interface timezone {
     /// If the timezone cannot be determined for the given `datetime`, return a
     /// `timezone-display` for `UTC` with a `utc-offset` of 0 and no daylight
     /// saving time.
+    @unstable(feature = clocks-timezone)
     display: func(when: datetime) -> timezone-display;
 
     /// The same as `display`, but only return the UTC offset.
+    @unstable(feature = clocks-timezone)
     utc-offset: func(when: datetime) -> s32;
 
     /// Information useful for displaying the timezone of a specific `datetime`.
     ///
     /// This information may vary within a single `timezone` to reflect daylight
     /// saving time adjustments.
+    @unstable(feature = clocks-timezone)
     record timezone-display {
         /// The number of seconds difference between UTC time and the local
         /// time of the timezone.

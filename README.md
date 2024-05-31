@@ -141,5 +141,5 @@ Many thanks for valuable feedback and advice from:
 The file `imports.md` is generated using [wit-bindgen](https://github.com/bytecodealliance/wit-bindgen).
 
 ```bash
-wit-bindgen markdown wit --html-in-md
+wit-bindgen markdown wit --html-in-md --features clocks-timezone
 ```

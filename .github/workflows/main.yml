@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [main]
 
+inputs:
+  features: clocks-timezone
+
 jobs:
   abi-up-to-date:
     name: Check ABI files are up-to-date
@@ -19,5 +22,3 @@ jobs:
         git add -N wit/deps
         git diff --exit-code
     - uses: WebAssembly/wit-abi-up-to-date@v21
-      inputs:
-        features: clocks-timezone

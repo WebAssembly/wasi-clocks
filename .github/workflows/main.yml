@@ -18,4 +18,5 @@ jobs:
         ./wit-deps lock
         git add -N wit/deps
         git diff --exit-code
-    - uses: WebAssembly/wit-abi-up-to-date@v20
+    - uses: WebAssembly/wit-abi-up-to-date@v21
+      features: clocks-timezone

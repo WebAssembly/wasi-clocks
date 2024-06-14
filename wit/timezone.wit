@@ -2,6 +2,7 @@ package wasi:clocks@0.2.0;
 
 @unstable(feature = clocks-timezone)
 interface timezone {
+    @unstable(feature = clocks-timezone)
     use wall-clock.{datetime};
 
     /// Return information needed to display the given `datetime`. This includes

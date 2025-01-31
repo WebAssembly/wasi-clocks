@@ -77,8 +77,7 @@ default-monotonic-clock: monotonic-clock
 
    let stop: MonotonicClockPoint = monotonic_clock::now(clock);
 
-   let elapsed: MonotonicClockPoint = stop - start;
-   // NOTE: should be `elapsed: Duration`?
+   let elapsed: Duration = stop - start;
 ```
 
 

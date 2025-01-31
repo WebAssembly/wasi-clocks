@@ -22,6 +22,13 @@ interface system-clock {
         nanoseconds: u32,
     }
 
+    /// A duration of time, in seconds plus nanoseconds.
+    @since(version = 0.3.0)
+    type duration = {
+        seconds: u64,
+        nanoseconds: u32,
+    };
+
     /// Read the current value of the clock.
     ///
     /// This clock is not monotonic, therefore calling this function repeatedly
@@ -42,8 +49,5 @@ interface system-clock {
     ///
     /// The nanoseconds field of the output is always less than 1000000000.
     @since(version = 0.3.0)
-    resolution: func() -> instant;
-    // NOTE: This return value doesn't represent an exact time, so maybe is not
-    // a correct use of the Instant type. Would it make sense to have a
-    // system-clock::duration analogous to monotonic-clock::duration?
+    resolution: func() -> duration;
 }

@@ -5,20 +5,20 @@ package wasi:clocks@0.3.0;
 /// It is intended to be portable at least between Unix-family platforms and
 /// Windows.
 ///
-/// An "instant", or "exact time", is a point in time without regard to any time
-/// zone: just the time since a particular external reference point, often
-/// called an "epoch".
-///
 /// External references may be reset, so this clock is not necessarily
 /// monotonic, making it unsuitable for measuring elapsed time.
 ///
 /// It is intended for reporting the current date and time for humans.
 @since(version = 0.3.0)
 interface system-clock {
-    /// An exact time in seconds plus nanoseconds.
+    /// An "instant", or "exact time", is a point in time without regard to any
+    /// time zone: just the time since a particular external reference point,
+    /// often called an "epoch".
+    /// For more on various different ways to represent time, see
+    /// https://tc39.es/proposal-temporal/docs/timezone.html
     @since(version = 0.3.0)
     record instant {
-        seconds: u64,
+        seconds: s64,
         nanoseconds: u32,
     }
 
@@ -47,6 +47,7 @@ interface system-clock {
 
     /// Query the resolution of the clock.
     ///
+    /// The seconds field of the output is always positive.
     /// The nanoseconds field of the output is always less than 1000000000.
     @since(version = 0.3.0)
     resolution: func() -> duration;

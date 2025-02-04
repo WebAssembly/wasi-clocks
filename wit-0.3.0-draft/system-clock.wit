@@ -16,7 +16,7 @@ interface system-clock {
     /// often called an "epoch".
     /// Note that even if the seconds field is negative, incrementing
     /// nanoseconds always represents moving forwards in time.
-    /// For example, `{ -1 seconds, 999_999_999 nanoseconds }` represents the
+    /// For example, `{ -1 seconds, 999999999 nanoseconds }` represents the
     /// instant one nanosecond before the epoch.
     /// For more on various different ways to represent time, see
     /// https://tc39.es/proposal-temporal/docs/timezone.html

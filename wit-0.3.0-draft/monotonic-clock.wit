@@ -37,7 +37,7 @@ interface monotonic-clock {
         when: mark,
     );
 
-    /// Wait for the specified duration has elapsed.
+    /// Wait for the specified duration.
     @since(version = 0.3.0)
     wait-for: func(
         how-long: duration,

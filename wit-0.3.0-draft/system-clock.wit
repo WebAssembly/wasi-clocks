@@ -14,6 +14,10 @@ interface system-clock {
     /// An "instant", or "exact time", is a point in time without regard to any
     /// time zone: just the time since a particular external reference point,
     /// often called an "epoch".
+    /// Note that even if the seconds field is negative, incrementing
+    /// nanoseconds always represents moving forwards in time.
+    /// For example, `{ -1 seconds, 999_999_999 nanoseconds }` represents the
+    /// instant one nanosecond before the epoch.
     /// For more on various different ways to represent time, see
     /// https://tc39.es/proposal-temporal/docs/timezone.html
     @since(version = 0.3.0)
@@ -47,7 +51,6 @@ interface system-clock {
 
     /// Query the resolution of the clock.
     ///
-    /// The seconds field of the output is always positive.
     /// The nanoseconds field of the output is always less than 1000000000.
     @since(version = 0.3.0)
     resolution: func() -> duration;

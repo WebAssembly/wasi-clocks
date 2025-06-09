@@ -33,13 +33,13 @@ interface monotonic-clock {
 
     /// Wait until the specified instant has occurred.
     @since(version = 0.3.0)
-    wait-until: func(
+    wait-until: async func(
         when: instant,
     );
 
     /// Wait for the specified duration has elapsed.
     @since(version = 0.3.0)
-    wait-for: func(
+    wait-for: async func(
         how-long: duration,
     );
 }

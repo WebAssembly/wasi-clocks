@@ -42,5 +42,5 @@ interface wall-clock {
     ///
     /// The nanoseconds field of the output is always less than 1000000000.
     @since(version = 0.3.0)
-    resolution: func() -> datetime;
+    get-resolution: func() -> datetime;
 }

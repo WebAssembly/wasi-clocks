@@ -29,7 +29,7 @@ interface monotonic-clock {
     /// Query the resolution of the clock. Returns the duration of time
     /// corresponding to a clock tick.
     @since(version = 0.3.0)
-    resolution: func() -> duration;
+    get-resolution: func() -> duration;
 
     /// Wait until the specified instant has occurred.
     @since(version = 0.3.0)

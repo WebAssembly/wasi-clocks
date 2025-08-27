@@ -28,9 +28,9 @@ interface monotonic-clock {
     /// produce a sequence of non-decreasing values.
     ///
     /// For completeness, this function traps if it's not possible to represent
-    /// the value of the clock in an `instant`. However, since `instant` can
-    /// represent over 584 years of time, this is not expected to occur in
-    /// practice.
+    /// the value of the clock in an `instant`. Consequently, implementations
+    /// should ensure that the starting time is low enough to avoid the
+    /// possibility of overflow in practice.
     @since(version = 0.2.0)
     now: func() -> instant;
 

@@ -28,10 +28,10 @@ interface system-clock {
 
     /// A duration of time, in seconds plus nanoseconds.
     @since(version = 0.3.0-rc-2025-08-15)
-    type duration = {
+    record duration {
         seconds: u64,
         nanoseconds: u32,
-    };
+    }
 
     /// Read the current value of the clock.
     ///

@@ -11,6 +11,8 @@ package wasi:clocks@0.3.0-rc-2025-09-16;
 /// It is intended for reporting the current date and time for humans.
 @since(version = 0.3.0-rc-2025-09-16)
 interface system-clock {
+    use types.{duration};
+
     /// An "instant", or "exact time", is a point in time without regard to any
     /// time zone: just the time since a particular external reference point,
     /// often called an "epoch".
@@ -33,13 +35,6 @@ interface system-clock {
         nanoseconds: u32,
     }
 
-    /// A duration of time, in seconds plus nanoseconds.
-    @since(version = 0.3.0-rc-2025-09-16)
-    type duration = {
-        seconds: u64,
-        nanoseconds: u32,
-    };
-
     /// Read the current value of the clock.
     ///
     /// This clock is not monotonic, therefore calling this function repeatedly
@@ -49,9 +44,8 @@ interface system-clock {
     @since(version = 0.3.0-rc-2025-09-16)
     now: func() -> instant;
 
-    /// Query the resolution of the clock.
-    ///
-    /// The nanoseconds field of the output is always less than 1000000000.
+    /// Query the resolution of the clock. Returns the smallest duration of time
+    /// that the implementation permits distinguishing.
     @since(version = 0.3.0-rc-2025-09-16)
     get-resolution: func() -> duration;
 }

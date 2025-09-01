@@ -5,31 +5,31 @@ interface timezone {
     @unstable(feature = clocks-timezone)
     use system-clock.{instant};
 
-    /// Return the IANA identifier of the currently configured timezone. The id
-    /// `UTC` indicates Coordinated Universal Time. Otherwise, this should be an
-    /// identifier from the IANA Time Zone Database.
+    /// Return the IANA identifier of the currently configured timezone. This
+    /// should be an identifier from the IANA Time Zone Database.
     ///
     /// For displaying to a user, the identifier should be converted into a
     /// localized name by means of an internationalization API.
     ///
-    /// In implementations that do not expose an actual time zone, this
-    /// should be the string `UTC`.
-    ///
-    /// In time zones that do not have an applicable name, a formatted
-    /// representation of the UTC offset may be returned, such as `-04:00`.
+    /// If the implementation does not expose an actual timezone, or is unable
+    /// to provide mappings from times to deltas between the configured timezone
+    /// and UTC, or determining the current timezone fails, or the timezone does
+    /// not have an IANA identifier, this returns nothing.
     @unstable(feature = clocks-timezone)
-    id: func() -> string;
+    iana-id: func() -> option<string>;
 
     /// The number of nanoseconds difference between UTC time and the local
-    /// time of the currently configured timezone at the exact time of
+    /// time of the currently configured timezone, at the exact time of
     /// `instant`.
     ///
     /// The magnitude of the returned value will always be less than
     /// 86,400,000,000,000 which is the number of nanoseconds in a day
     /// (24*60*60*1e9).
     ///
-    /// In implementations that do not expose an actual time zone, this
-    /// should return 0.
+    /// If the implementation does not expose an actual timezone, or is unable
+    /// to provide mappings from times to deltas between the configured timezone
+    /// and UTC, or determining the current timezone fails, this returns
+    /// nothing.
     @unstable(feature = clocks-timezone)
-    utc-offset: func(when: instant) -> s64;
+    utc-offset: func(when: instant) -> option<s64>;
 }

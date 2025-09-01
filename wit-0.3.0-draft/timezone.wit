@@ -32,4 +32,15 @@ interface timezone {
     /// nothing.
     @unstable(feature = clocks-timezone)
     utc-offset: func(when: instant) -> option<s64>;
+
+    /// Returns a string that is suitable to assist humans in debugging whether
+    /// any timezone is available, and if so, which. This may be the same string
+    /// as `iana-id`, or a formatted representation of the UTC offset such as
+    /// `-04:00`, or something else.
+    ///
+    /// WARNING: The returned string should not be consumed mechanically! It may
+    /// change across platforms, hosts, or other implementation details. Parsing
+    /// this string is a major platform-compatibility hazard.
+    @unstable(feature = clocks-timezone)
+    to-debug-string: func() -> string;
 }

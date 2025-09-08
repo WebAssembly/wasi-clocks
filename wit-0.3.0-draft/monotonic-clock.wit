@@ -35,12 +35,16 @@ interface monotonic-clock {
     get-resolution: func() -> duration;
 
     /// Wait until the specified instant has occurred.
+    ///
+    /// If instant is in the past, this function will return immediately.
     @since(version = 0.3.0-rc-2025-08-15)
     wait-until: async func(
         when: instant,
     );
 
     /// Wait for the specified duration to elapse.
+    ///
+    /// If duration is equal to 0, this function will return immediately.
     @since(version = 0.3.0-rc-2025-08-15)
     wait-for: async func(
         how-long: duration,
